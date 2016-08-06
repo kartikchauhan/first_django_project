@@ -1,9 +1,18 @@
 from django.http import HttpResponse
+from django.http import Http404
+from django.shortcuts import render
+from .models import Album
 
 
 def index(request):
-    return HttpResponse("this is my music app")
+    all_albums = Album.objects.all()
+    context = {'all_albums': all_albums}
+    return render(request, 'index.html', context)
 
 
 def lists(request, album_id):
-    return HttpResponse("<h1>this is album no." + str(album_id) + "</h1>")
+    try:
+        album = Album.objects.get(id=album_id)
+    except Album.DoesNotExist:
+        raise Http404('Album doesn\'t exist')
+    return render(request, 'lists.html', {'album': album})
