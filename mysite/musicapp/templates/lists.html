@@ -1,10 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Lists
+{% endblock %}
+
+{% block body %}
+
 <img src="{{ album.album_logo }}">
 
 <h1> {{ album.artist }}</h1>
 
 <h2> {{ album.album_title }}</h2>
 
-<form action="{% url 'musics:favorite' album.id %}" method="post">
+<form action="{% url 'music:favorite' album.id %}" method="post">
     {% csrf_token %}
     {% for song in album.song_set.all %}
     {{ forloop.counter }}
@@ -19,3 +27,5 @@
     {% endfor %}
     <input type="submit" value="Favorite" />
 </form>
+
+{% endblock %}
