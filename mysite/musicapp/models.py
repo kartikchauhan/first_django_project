@@ -8,13 +8,20 @@ class Album(models.Model):
     album_logo = models.CharField(max_length=100)
 
     def __str__(self):
-        return "artist: " + self.artist + "album_title: " + self.album_title
+        return "artist: " + self.artist + " album_title: " + self.album_title
 
 
 class Song(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     file_type = models.CharField(max_length=10)
     song_title = models.CharField(max_length=100)
+    is_favorite = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "song:" + self.song_title
+
+
+
 
 
 
